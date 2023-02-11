@@ -1,6 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class LangType:
     EN = "en"
     JP = "jp"
-
-if __name__ == "__main__":
-    print(LangType.EN)

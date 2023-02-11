@@ -1,9 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from pathlib import Path
 import json
 
 from lang_type import LangType
 
-class translator:
+class Translator:
     def __init__(self, tr_dir: str = "tr", file_name: str = "translation", lang: LangType = LangType.EN) -> None:
         """ Load and set translate file.
         Parameters:
@@ -27,6 +30,13 @@ class translator:
         """
         return self._tr_dict.get(tr_key, default_value)
 
+    def change_lang(self, lang: LangType = LangType.EN) -> None:
+        """ Change translation file.
+        Parameters:
+            lang: Language type.
+        """
+        self._create_file_name(lang)
+
     def _create_file_name(self, lang: LangType = LangType.EN) -> None:
         """ Create translation file name.
         Parameters:
@@ -42,5 +52,6 @@ class translator:
         file_path = self._tr_dir / file_name
         if not self._tr_dir.exists():
             raise ValueError(f"translation file is not found. file path:{file_path}")
-        self._tr_dict = json.loads(file_path.read_text())
+        data = file_path.read_text(encoding="utf-8")
+        self._tr_dict = json.loads(data)
         
